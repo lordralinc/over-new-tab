@@ -1,0 +1,133 @@
+/* Глобальные переменные для тем */
+:root {
+  --background-color: black;
+  --foreground-color: white;
+  --accent-color: #a8a8a8;
+  --button-background: transparent;
+  --button-hover-background: #a8a8a8;
+  --button-hover-color: #000000;
+  --button-active-background: #ffffff;
+  --button-active-color: #080808;
+  --search-bar-background: rgba(0, 0, 0, 0.2);
+  --search-bar-text-color: rgba(255, 255, 255, 0.6);
+  --link-hover-opacity: 0.8;
+  --link-hover-transform: scaleX(1);
+  --link-default-color: inherit;
+  --link-hover-color: rgba(255, 255, 255, 0.8);
+  --block-background: rgba(0, 0, 0, 0.3);
+
+  --time-font-size: calc(5 * 1rem);
+  --date-font-size: calc(2 * 1rem);
+}
+
+/* Светлая тема */
+[data-theme="light"] {
+  --background-color: #ffffff;
+  --foreground-color: #121212;
+  --accent-color: #4b4b4b;
+  --button-background: transparent;
+  
+  --button-hover-background: #f1f1f1;
+  --button-hover-color: #121212;
+  --button-active-background: #cccccc;
+  --button-active-color: #121212;
+  --search-bar-background: rgba(255, 255, 255, 0.2);
+  --search-bar-text-color: rgba(0, 0, 0, 0.6);
+  --link-hover-opacity: 0.9;
+  --link-hover-transform: scaleX(1.05);
+  --link-default-color: #121212;
+  --link-hover-color: #121212;
+  --block-background: rgba(255, 255, 255, 0.3);
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+  --background-color: #121212;
+  --foreground-color: #f1f1f1;
+  --accent-color: #8a8a8a;
+  --button-background: transparent;
+  --button-hover-background: #8a8a8a;
+  --button-hover-color: #000000;
+  --button-active-background: #ffffff;
+  --button-active-color: #080808;
+  --search-bar-background: rgba(0, 0, 0, 0.3);
+  --search-bar-text-color: rgba(255, 255, 255, 0.6);
+  --link-hover-opacity: 0.9;
+  --link-hover-transform: scaleX(1.05);
+  --link-default-color: inherit;
+  --link-hover-color: rgba(255, 255, 255, 0.9);
+  --block-background: rgba(0, 0, 0, 0.5);
+}
+
+/* Контрастная тема */
+[data-theme="high-contrast"] {
+  --background-color: #000000;
+  --foreground-color: #ffffff;
+  --accent-color: #ffcc00;
+  --button-background: transparent;
+  --button-hover-background: #ffcc00;
+  --button-hover-color: #000000;
+  --button-active-background: #ff9900;
+  --button-active-color: #000000;
+  --search-bar-background: rgba(0, 0, 0, 0.4);
+  --search-bar-text-color: rgba(255, 255, 255, 0.9);
+  --link-hover-opacity: 1;
+  --link-hover-transform: scaleX(1);
+  --link-default-color: #ffcc00;
+  --link-hover-color: #ff9900;
+  --block-background: rgba(0, 0, 0, 0.7);
+}
+
+/* Ретро тема */
+[data-theme="retro"] {
+  --background-color: #1d1d1d;
+  --foreground-color: #c7c7c7;
+  --accent-color: #00ff00;
+  --button-background: #333333;
+  --button-hover-background: #00ff00;
+  --button-hover-color: #000000;
+  --button-active-background: #ff6600;
+  --button-active-color: #ffffff;
+  --search-bar-background: rgba(0, 0, 0, 0.3);
+  --search-bar-text-color: rgba(255, 255, 255, 0.8);
+  --link-hover-opacity: 1;
+  --link-hover-transform: scaleX(1.05);
+  --link-default-color: #00ff00;
+  --link-hover-color: #ff6600;
+  --block-background: rgba(0, 0, 0, 0.5);
+}
+
+/* Тема "Ночь в городе" */
+[data-theme="night-city"] {
+  --background-color: #2b2b2b;
+  --foreground-color: #fefefe;
+  --accent-color: #ff3366;
+  --button-background: transparent;
+  --button-hover-background: #ff3366;
+  --button-hover-color: #fefefe;
+  --button-active-background: #ff6699;
+  --button-active-color: #2b2b2b;
+  --search-bar-background: rgba(0, 0, 0, 0.4);
+  --search-bar-text-color: rgba(255, 255, 255, 0.7);
+  --link-hover-opacity: 0.9;
+  --link-hover-transform: scaleX(1.1);
+  --link-default-color: #ff3366;
+  --link-hover-color: #ff6699;
+  --block-background: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+}
