@@ -1,5 +1,5 @@
 .select {
-  background-color: var(--background-color);
+  background: transparent;
   color: var(--foreground-color);
   border: 1px solid var(--accent-color);
   border-radius: 5px;
@@ -28,4 +28,8 @@
       color: var(--foreground-color);
     }
   }
+}
+
+.bg {
+  background-color: var(--background-color);
 }

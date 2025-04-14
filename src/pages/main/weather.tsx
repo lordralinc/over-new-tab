@@ -22,12 +22,12 @@ export default function Weather() {
       {weatherInfo ? (
         <>
           <img
-            src={weatherInfo?.current.condition.icon}
+            src={weatherService.getUrl(weatherInfo.current.condition.icon)}
             width="24px"
             height="24px"
           />{" "}
-          {weatherInfo?.location.name}, {weatherInfo?.current.condition.text},{" "}
-          {weatherInfo?.current.temp_c} °C
+          {weatherInfo.location.name}, {weatherInfo.current.condition.text},{" "}
+          {weatherInfo.current.temp_c} °C
         </>
       ) : (
         <Spinner variant="small" />

@@ -1,0 +1,14 @@
+.group {
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+  &[data-variant="default"] {
+    background-color: var(--background-color);
+  }
+  &[data-variant="ghost"] {
+    background-color: var(--block-background);
+  }
+  & > h3 {
+    text-align: center;
+  }
+}

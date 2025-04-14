@@ -4,6 +4,7 @@ import SettingsIcon from "../../icons/settings-icon";
 import Select from "../../ui/select";
 import styles from "./settings-switcher.module.scss";
 import { getThemes } from "../../utils";
+import config from "../../config";
 
 export default function SettingsSwitcher({
   setCurrentPage,
@@ -12,9 +13,7 @@ export default function SettingsSwitcher({
   currentPage: "new_tab" | "settings";
   setCurrentPage: (page: "new_tab" | "settings") => void;
 }) {
-  const [currentTheme, setCurrentTheme] = React.useState(
-    localStorage.getItem("theme") ?? "system"
-  );
+  const [currentTheme, setCurrentTheme] = React.useState(config.theme);
 
   React.useEffect(() => {
     if (currentTheme !== "system") {
@@ -22,7 +21,7 @@ export default function SettingsSwitcher({
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
-    localStorage.setItem("theme", currentTheme);
+    config.theme = currentTheme;
   }, [currentTheme]);
 
   const themes = getThemes();
@@ -34,6 +33,7 @@ export default function SettingsSwitcher({
         onChange={(e) =>
           setCurrentTheme((e.target as HTMLSelectElement)?.value ?? "system")
         }
+        ghost={false}
       >
         {Object.keys(themes).map((key) => {
           return (
@@ -48,6 +48,7 @@ export default function SettingsSwitcher({
           if (currentPage === "new_tab") setCurrentPage("settings");
           if (currentPage === "settings") setCurrentPage("new_tab");
         }}
+        ghost={false}
       >
         <SettingsIcon
           width="15px"

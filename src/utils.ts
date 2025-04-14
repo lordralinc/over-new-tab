@@ -18,13 +18,25 @@ export const getNavigatorLanguage = (defaultLanguage: string = "en") => {
   }
 };
 
+export const transformVarColor = (color: string): string => {
+  if (color.startsWith("var(")) {
+    color = color.slice(4, -1).trim();
+  }
+  if (color.startsWith("--")) {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(color)
+      .trim();
+  }
+  return color;
+};
+
 export const getThemes = (): { [key: string]: string } => {
   return {
-    system: "стандартная",
-    light: "светлая",
-    dark: "тёмная",
-    "high-contrast": "высокий контраст",
-    retro: "ретро",
-    "night-city": "ночной город",
+    system: "default",
+    light: "light",
+    dark: "dark",
+    "high-contrast": "high contrast",
+    retro: "retro",
+    "night-city": "night city",
   };
 };

@@ -1,0 +1,23 @@
+{
+  "Search": "Поиск",
+  "background settings": "настройки фона",
+  "type": "тип",
+  "theme": "тема",
+  "color": "цвет",
+  "image": "изображение",
+  "scale": "маштаб",
+  "cover": "cover",
+  "contain": "contain",
+  "strech": "растянуть",
+  "background image": "изображение",
+  "delete images": "удалить изображения",
+  "city": "город",
+  "reset to defaults": "сбросить до стандартных",
+  "tabs editor": "редактор вкладок",
+  "add tab": "добавить вкладку",
+  "site name": "имя сайта",
+  "site url": "URL сайта",
+  "tab name": "имя вкдалки",
+  "sites": "сайты",
+  "add site": "добавить сайт"
+}

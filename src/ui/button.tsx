@@ -4,12 +4,16 @@ import styles from "./button.module.scss";
 
 const Button = React.forwardRef<
   HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ className, ...props }, ref) => {
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { ghost?: boolean }
+>(({ className, ghost = true, ...props }, ref) => {
   return (
     <button
       ref={ref}
-      className={mergeClassNames(className?.toString(), styles.button)}
+      className={
+        ghost
+          ? mergeClassNames(className?.toString(), styles.button)
+          : mergeClassNames(className?.toString(), styles.button, styles.bg)
+      }
       {...props}
     />
   );

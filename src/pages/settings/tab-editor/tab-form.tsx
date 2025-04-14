@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
 import CloseIcon from "../../../icons/close-icon";
+import { SiteItem, Tab } from "../../../types";
 import Button from "../../../ui/button";
+import ColorPicker from "../../../ui/color-picker";
+import Group from "../../../ui/group";
 import Input from "../../../ui/input";
-import { SiteItem, Tab } from "../../main/tabs";
+import { transformVarColor } from "../../../utils";
 import SiteEditor from "./site-editor";
 
 import styles from "./tab-form.module.scss";
@@ -15,9 +19,14 @@ const TabForm = ({
   deleteTab: () => void;
   onTabChange: (tab: Tab) => void;
 }) => {
+  const { t } = useTranslation();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
     onTabChange({ ...tab, [name]: value });
+  };
+
+  const handleColorChange = (color: string) => {
+    onTabChange({ ...tab, color });
   };
 
   const handleSiteChange = (index: number, updatedSite: SiteItem) => {
@@ -40,21 +49,18 @@ const TabForm = ({
   };
 
   return (
-    <div className={styles.container}>
+    <Group className={styles.container} variant="default">
       <div className={styles.header}>
-        <Input
-          type="color"
-          name="color"
-          value={tab.color}
-          onChange={handleInputChange}
-          style={{ width: "26px" }}
+        <ColorPicker
+          color={transformVarColor(tab.color)}
+          onChange={(color) => handleColorChange(color.hex)}
         />
         <Input
           type="text"
           name="name"
           value={tab.name}
           onChange={handleInputChange}
-          placeholder="Название вкладки"
+          placeholder={t("tab name")}
           style={{ width: "100%" }}
         />
         <Button onClick={deleteTab}>
@@ -66,7 +72,7 @@ const TabForm = ({
         </Button>
       </div>
       <div className={styles.content}>
-        <h4>Сайты:</h4>
+        <h4>{t("sites")}</h4>
         {tab.content.map((site, index) => (
           <SiteEditor
             key={index}
@@ -75,9 +81,9 @@ const TabForm = ({
             onSiteDelete={() => onSiteDelete(index)}
           />
         ))}
-        <Button onClick={handleAddSite}>Добавить сайт</Button>
+        <Button onClick={handleAddSite}>{t("add site")}</Button>
       </div>
-    </div>
+    </Group>
   );
 };
 

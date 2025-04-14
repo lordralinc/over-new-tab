@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import CloseIcon from "../../../icons/close-icon";
+import { SiteItem } from "../../../types";
 import Button from "../../../ui/button";
+import ColorPicker from "../../../ui/color-picker";
 import Input from "../../../ui/input";
-import { SiteItem } from "../../main/tabs";
+import { transformVarColor } from "../../../utils";
 import styles from "./site-editor.module.scss";
 
 const SiteEditor = ({
@@ -13,26 +16,28 @@ const SiteEditor = ({
   onSiteChange: (site: SiteItem) => void;
   onSiteDelete: () => void;
 }) => {
+  const { t } = useTranslation();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
     onSiteChange({ ...site, [name]: value });
   };
 
+  const handleColorChange = (color: string) => {
+    onSiteChange({ ...site, color });
+  };
+
   return (
     <div className={styles.container}>
-      <Input
-        type="color"
-        name="color"
-        value={site.color}
-        onChange={handleInputChange}
-        style={{ width: "26px" }}
+      <ColorPicker
+        color={transformVarColor(site.color)}
+        onChange={(color) => handleColorChange(color.hex)}
       />
       <Input
         type="text"
         name="name"
         value={site.name}
         onChange={handleInputChange}
-        placeholder="Название сайта"
+        placeholder={t("site name")}
       />
 
       <Input
@@ -40,7 +45,7 @@ const SiteEditor = ({
         name="url"
         value={site.url}
         onChange={handleInputChange}
-        placeholder="URL сайта"
+        placeholder={t("site url")}
       />
       <Button onClick={onSiteDelete}>
         <CloseIcon width="15px" height="15px" fill="var(--foreground-color)" />

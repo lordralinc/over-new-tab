@@ -1,16 +1,18 @@
 import React from "preact/compat";
-import { defaultTabs, Tab } from "../../main/tabs";
 import TabForm from "./tab-form";
 import Button from "../../../ui/button";
 import styles from "./editor.module.scss";
+import { Tab } from "../../../types";
+import config from "../../../config";
+import Group from "../../../ui/group";
+import { useTranslation } from "react-i18next";
 
 const TabEditor = () => {
-  const [tabs, onUpdateTabs] = React.useState<Tab[]>(
-    JSON.parse(localStorage.getItem("tabs") ?? JSON.stringify(defaultTabs))
-  );
+  const { t } = useTranslation();
+  const [tabs, onUpdateTabs] = React.useState<Tab[]>(config.tabs);
 
   React.useEffect(() => {
-    localStorage.setItem("tabs", JSON.stringify(tabs));
+    config.tabs = tabs;
   }, [tabs]);
 
   const handleAddTab = () => {
@@ -30,13 +32,15 @@ const TabEditor = () => {
 
   const handleDeleteTab = (index: number) => {
     const updatedTabs = tabs.filter((_, i) => i !== index);
-    onUpdateTabs(updatedTabs); 
-    localStorage.setItem("tabs", JSON.stringify(updatedTabs));
+    onUpdateTabs(updatedTabs);
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>Редактор вкладок</div>
+    <Group
+      className={styles.container}
+      variant="ghost"
+      title={t("tabs editor")}
+    >
       <div className={styles.content}>
         {tabs.map((tab, index) => (
           <TabForm
@@ -46,9 +50,9 @@ const TabEditor = () => {
             deleteTab={() => handleDeleteTab(index)}
           />
         ))}
-        <Button onClick={handleAddTab}>Добавить вкладку</Button>
+        <Button onClick={handleAddTab}>{t("add tab")}</Button>
       </div>
-    </div>
+    </Group>
   );
 };
 

@@ -3,16 +3,21 @@ import VisualBlock from "../../ui/visual-block";
 import styles from "./settings.module.scss";
 import TabEditor from "./tab-editor/editor";
 import { getThemes } from "../../utils";
-import Select from "../../ui/select";
-import Input from "../../ui/input";
+import config from "../../config";
+import BackgroundEditor from "./background-editor";
+import Button from "../../ui/button";
+import InputField from "../../ui/input-field";
+import SelectField from "../../ui/select-field";
+import { useTranslation } from "react-i18next";
 
 export default function Settings() {
-  const [currentTheme, setCurrentTheme] = React.useState(
-    localStorage.getItem("theme") ?? "system"
-  );
-  const [city, setCity] = React.useState(localStorage.getItem("city") ?? "");
+  const { t } = useTranslation();
+  const [currentTheme, setCurrentTheme] = React.useState(config.theme);
+  const [city, setCity] = React.useState(config.city ?? "");
 
-  React.useEffect(() => localStorage.setItem("city", city), [city]);
+  React.useEffect(() => {
+    config.city = city;
+  }, [city]);
 
   React.useEffect(() => {
     if (currentTheme !== "system") {
@@ -20,43 +25,41 @@ export default function Settings() {
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
-    localStorage.setItem("theme", currentTheme);
+    config.theme = currentTheme;
   }, [currentTheme]);
 
   const themes = getThemes();
 
   return (
-    <VisualBlock>
-      <div className={styles.mb5}>
-        <label htmlFor="theme-select">Тема: </label>
-        <Select
-          id="theme-select"
-          value={currentTheme}
-          onChange={(e) =>
-            setCurrentTheme((e.target as HTMLSelectElement)?.value ?? "system")
-          }
-        >
-          {Object.keys(themes).map((key) => {
-            return (
-              <option value={key} key={key}>
-                {themes[key]}
-              </option>
-            );
-          })}
-        </Select>
-      </div>
-      <div className={styles.mb5}>
-        <label htmlFor="city-selector">
-          Город:
-          <Input
-            id="city-selector"
-            type="text"
-            value={city}
-            onChange={(e) => setCity((e.target as HTMLInputElement).value)}
-          />
-        </label>
-      </div>
+    <VisualBlock className={styles.container}>
+      <SelectField
+        id="theme-select"
+        label={t("theme")}
+        value={currentTheme}
+        onChange={(e) => setCurrentTheme(e)}
+        options={Object.keys(themes).map((key) => {
+          return { value: key, name: themes[key] };
+        })}
+      />
+      <InputField
+        id="city-selector"
+        label={t("city")}
+        value={city}
+        onChange={(e) => setCity(e)}
+      />
+      <BackgroundEditor />
       <TabEditor />
+      <div className="mb5 w100 center">
+        <Button
+          onClick={() => {
+            localStorage.clear();
+            document.location.reload();
+          }}
+          className="w100"
+        >
+          {t("reset to defaults")}
+        </Button>
+      </div>
     </VisualBlock>
   );
 }

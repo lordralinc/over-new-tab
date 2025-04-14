@@ -2,21 +2,26 @@ import React from "preact/compat";
 import Input from "../../ui/input";
 import styles from "./search-bar.module.scss";
 import Button from "../../ui/button";
+import config from "../../config";
+import { useTranslation } from "react-i18next";
 
 export default function SearchBar() {
+  const { t } = useTranslation();
   const [searchValue, setSearchValue] = React.useState("");
 
+  const providers = config.searchProviders;
+
   const search = React.useCallback(
-    (variant: "google" | "google_translate" | "chatgpt" = "google") => {
-      if (variant === "google") {
-        document.location = `https://google.com/search?q=${searchValue}`;
-      } else if (variant === "google_translate") {
-        document.location = `https://translate.google.com/?hl=ru&q=${searchValue}`;
-      } else if (variant === "chatgpt") {
-        document.location = `https://chatgpt.com/?q=${searchValue}&hints=search&ref=ext`;
-      }
+    (variant: string) => {
+      let provider = providers.filter((pr) => pr.id === variant)[0];
+      window.open(
+        provider.search_url.replace(
+          "${searchTerms}",
+          encodeURIComponent(searchValue)
+        )
+      );
     },
-    [searchValue],
+    [searchValue]
   );
 
   return (
@@ -26,17 +31,19 @@ export default function SearchBar() {
         onChange={(e) =>
           setSearchValue((e.target as HTMLInputElement | null)?.value || "")
         }
-        placeholder="Поиск"
+        placeholder={t("Search")}
         onKeyDown={(e) => {
-          if (e.key.toLowerCase() === "enter") search();
+          if (e.key.toLowerCase() === "enter") search("google");
         }}
       />
       <div className={styles.buttons}>
-        <Button onClick={() => search("google")}>Google</Button>
-        <Button onClick={() => search("google_translate")}>
-          Google Translate
-        </Button>
-        <Button onClick={() => search("chatgpt")}>ChatGPT</Button>
+        {providers
+          .filter((provider) => provider.enabled)
+          .map((provider) => (
+            <Button key={provider.id} onClick={() => search(provider.id)}>
+              {provider.name}
+            </Button>
+          ))}
       </div>
     </div>
   );

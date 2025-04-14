@@ -1,3 +1,5 @@
+import config from "../../config";
+
 interface WeatherCondition {
   text: string;
   icon: string;
@@ -54,12 +56,12 @@ export interface WeatherInfo {
 
 class WeatherService {
   async getCity(): Promise<string> {
-    let storedCity = localStorage.getItem("city");
+    let storedCity = config.city;
     if (!storedCity) {
       let city = await fetch("https://ipinfo.io/json")
         .then((r) => r.json())
         .then((r) => r.city);
-      localStorage.setItem("city", city);
+      config.city = city;
       return city;
     }
     return storedCity;
@@ -67,7 +69,9 @@ class WeatherService {
 
   async getWeatherInfo(city: string): Promise<WeatherInfo> {
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-    const url = `https://api.weatherapi.com/v1/current.json?lang=ru&key=${apiKey}&q=${encodeURIComponent(city)}`;
+    const url = `https://api.weatherapi.com/v1/current.json?lang=ru&key=${apiKey}&q=${encodeURIComponent(
+      city
+    )}`;
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -75,6 +79,13 @@ class WeatherService {
     }
 
     return await response.json();
+  }
+
+  getUrl(url: string): string {
+    if (!url.startsWith("http")) {
+      return `https:${url}`;
+    }
+    return url;
   }
 }
 

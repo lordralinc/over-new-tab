@@ -4,12 +4,16 @@ import styles from "./select.module.scss";
 
 const Select = React.forwardRef<
   HTMLSelectElement,
-  React.SelectHTMLAttributes<HTMLSelectElement>
->(({ className, ...props }, ref) => {
+  React.SelectHTMLAttributes<HTMLSelectElement> & { ghost?: boolean }
+>(({ className, ghost = true, ...props }, ref) => {
   return (
     <select
       ref={ref}
-      className={mergeClassNames(className?.toString(), styles.select)}
+      className={
+        ghost
+          ? mergeClassNames(className?.toString(), styles.select)
+          : mergeClassNames(className?.toString(), styles.select, styles.bg)
+      }
       {...props}
     />
   );
