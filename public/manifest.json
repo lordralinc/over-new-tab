@@ -1,15 +1,24 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "OverNewTab",
-  "description": "Расширение OverNewTab заменяет стандартную новую вкладку на кастомизируемый интерфейс",
-  "version": "1.1.0",
-  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "description": "OverNewTab replaces the default new tab with a customizable interface.",
+  "version": "1.1.1",
+  "action": {},
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
   "icons": {
     "48": "icons/icon.svg",
     "96": "icons/icon.svg"
   },
-  "chrome_url_overrides": {
-    "newtab": "index.html"
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{7bd3ab37-7c59-4b35-bd79-218bd69f9829}"
+    }
   },
-  "permissions": ["bookmarks"]
+  "permissions": ["bookmarks"],
+  "host_permissions": ["https://api.weatherapi.com/", "https://ipinfo.io/"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
 }

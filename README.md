@@ -1,27 +1,61 @@
-# START PAGE
+# Over New Tab
 
-## OS
+A **Firefox extension** that replaces the default new tab.  
+Features a **custom background editor**, **themes**, **quick links**, and live **weather** powered by [weatherapi.com](https://www.weatherapi.com/).
 
-Windows 11
+---
 
-## Installation & Setup
+## 🚀 Getting Started
 
-0. Install node, vite
+### 1. Install Node.js
 
-https://nodejs.org/en/download
+Install the latest [Node.js](https://nodejs.org/) (LTS version recommended).
 
-https://vite.dev/guide/
+### 2. Install Yarn
 
-1. Install dependencies
+```bash
+npm install -g yarn
+```
+
+### 3. Clone the repository and install dependencies
+
+```
+git clone git@github.com:lordralinc/over-new-tab.git
+cd over-new-tab
+yarn install
+```
+
+### 4. Set up environment variables (optional)
+
+Create a `.env` file in the root directory and add your Weather API key:
+
+```env
+VITE_WEATHER_API_KEY=your_api_key_from_weatherapi
+```
+
+You can get a free API key at [weatherapi.com](https://weatherapi.com).
+
+### 5. Start the development server
 
 ```bash
 yarn
+yarn dev
 ```
 
-2. Build
+### 6. Build the extension
 
 ```bash
 yarn build
 ```
 
-This will generate the extension files in dist/ and create a over_new_tab.zip ready for publishing and create a sources.zip ready for review.
+After build:
+
+- `dist/over_new_tab.zip` — the packaged Firefox extension
+- `dist/sources.zip` — filtered source code archive (excludes node_modules, .git, etc.)
+
+## 🧩 Features
+
+- 🎨 Background Editor — upload your own image or pick a color
+- 🌙 Themes — toggle between modes
+- 🔗 Quick Links — customizable shortcuts
+- Weather Widget — shows current weather using your IP
